@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"sync"
 	"testing"
 
@@ -14,10 +15,13 @@ func TestMqttPubSub(t *testing.T) {
 	opts := mqtt.NewClientOptions().AddBroker("tcp://localhost:1883")
 
 	client := mqtt.NewClient(opts)
+	log.Printf("connecting...\n")
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		t.Fatal(token.Error())
 	}
+	//client.SetClientID("mytopic")
 
+	log.Printf("subscribing...")
 	var wg sync.WaitGroup
 	wg.Add(1)
 
@@ -29,6 +33,7 @@ func TestMqttPubSub(t *testing.T) {
 	}); token.Wait() && token.Error() != nil {
 		t.Fatal(token.Error())
 	}
+	log.Printf("publishing...")
 
 	if token := client.Publish(TOPIC, 0, false, "mymessage"); token.Wait() && token.Error() != nil {
 		t.Fatal(token.Error())
