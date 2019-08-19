@@ -10,6 +10,8 @@ import (
 
 func TestMqttPubSub(t *testing.T) {
 
+	c := mqtt.New()
+
 	const TOPIC = "mytopic/test"
 
 	opts := mqtt.NewClientOptions().AddBroker("tcp://localhost:1883")

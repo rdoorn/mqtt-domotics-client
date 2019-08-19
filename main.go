@@ -12,7 +12,7 @@ import (
 const (
 	RECEIVE = "domoticz/out"
 	SEND    = "domoticz/in"
-	HOST    = "tcp://localhost:1883"
+	HOST    = "tcp://192.168.178.242:1883"
 )
 
 func main() {
